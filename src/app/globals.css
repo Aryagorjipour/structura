@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer base {
+  :root { --font-pixel: 'Press Start 2P'; }
+}
+
+.font-pixel { font-family: var(--font-pixel), monospace; }
+
+/* Scanline effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
