@@ -42,8 +42,15 @@ export default function Phase2Visual({ boss, onComplete }: Phase2VisualProps) {
 
   return (
     <div className="space-y-4">
-      <div className="font-pixel text-xs text-purple-400 text-center mb-2">
-        ▶ VISUAL TRACE — PHASE II
+      <div className="text-center mb-3">
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--color-cyan)', marginBottom: 4 }}>
+          ▶ VISUAL TRACE — PHASE II
+        </div>
+        {spec?.title && (
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'var(--color-muted)' }}>
+            {spec.title}
+          </div>
+        )}
       </div>
 
       {isArray && stepState !== undefined ? (

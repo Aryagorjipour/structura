@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { BossNode } from '../../store/types'
 import PixelButton from '../ui/PixelButton'
@@ -8,22 +8,78 @@ import PixelButton from '../ui/PixelButton'
 interface Phase1QuizProps {
   boss: BossNode
   onComplete: (passed: boolean) => void
+  savedQuizState?: { answers: Array<{ selected: number; wasCorrect: boolean }>; score: number } | null
+  onQuizProgress?: (state: { answers: Array<{ selected: number; wasCorrect: boolean }>; score: number }) => void
 }
 
-export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
+export default function Phase1Quiz({ boss, onComplete, savedQuizState, onQuizProgress }: Phase1QuizProps) {
   const [qIndex, setQIndex] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [confirmed, setConfirmed] = useState(false)
   const [score, setScore] = useState(0)
   const [showExplain, setShowExplain] = useState(false)
+  const [isReplaying, setIsReplaying] = useState(false)
+  const [replayQIndex, setReplayQIndex] = useState(-1)
+  const [replaySelected, setReplaySelected] = useState<number | null>(null)
+  const [replayShowExplain, setReplayShowExplain] = useState(false)
+  const answersRef = useRef<Array<{ selected: number; wasCorrect: boolean }>>(
+    savedQuizState?.answers ?? []
+  )
 
-  const question = boss.questions[qIndex]
+  // Replay saved progress on mount
+  useEffect(() => {
+    if (!savedQuizState || savedQuizState.answers.length === 0) return
+
+    const savedAnswers = savedQuizState.answers
+    setScore(savedQuizState.score)
+    setIsReplaying(true)
+    setReplayQIndex(0)
+
+    let i = 0
+    function replayNext() {
+      if (i >= savedAnswers.length) {
+        setIsReplaying(false)
+        setReplayQIndex(-1)
+        setReplaySelected(null)
+        setReplayShowExplain(false)
+        setQIndex(savedAnswers.length)
+        return
+      }
+      const ans = savedAnswers[i]
+      setReplayQIndex(i)
+      setReplaySelected(null)
+      setReplayShowExplain(false)
+
+      setTimeout(() => {
+        setReplaySelected(ans.selected)
+        setTimeout(() => {
+          setReplayShowExplain(true)
+          setTimeout(() => {
+            i++
+            replayNext()
+          }, 700)
+        }, 500)
+      }, 350)
+    }
+
+    replayNext()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const effectiveQIndex = isReplaying ? replayQIndex : qIndex
+  const effectiveSelected = isReplaying ? replaySelected : selected
+  const effectiveConfirmed = isReplaying ? replayShowExplain : confirmed
+  const effectiveShowExplain = isReplaying ? replayShowExplain : showExplain
+
+  const question = effectiveQIndex >= 0 && effectiveQIndex < boss.questions.length
+    ? boss.questions[effectiveQIndex]
+    : boss.questions[qIndex]
   const correctIdx = question.correctIndex ?? question.correct ?? 0
-  const isCorrect = selected === correctIdx
+  const isCorrect = effectiveSelected === correctIdx
   const totalQ = boss.questions.length
 
   function handleSelect(idx: number) {
-    if (confirmed) return
+    if (confirmed || isReplaying) return
     setSelected(idx)
   }
 
@@ -33,6 +89,11 @@ export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
     setConfirmed(true)
     setShowExplain(true)
     if (correct) setScore(s => s + 1)
+    const wasCorrect = selected === correctIdx
+    answersRef.current = [...answersRef.current, { selected: selected!, wasCorrect }]
+    if (onQuizProgress) {
+      onQuizProgress({ answers: answersRef.current, score: score + (wasCorrect ? 1 : 0) })
+    }
   }
 
   function handleNext() {
@@ -57,17 +118,29 @@ export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
         </pre>
       </div>
 
+      {/* Replay banner */}
+      {isReplaying && (
+        <div style={{
+          background: 'rgba(94,200,220,0.06)', border: '1px solid rgba(94,200,220,0.2)',
+          borderRadius: 6, padding: '8px 12px',
+          fontFamily: 'var(--font-mono)', fontSize: '0.55rem', color: 'var(--color-cyan)',
+          letterSpacing: '0.1em', textAlign: 'center',
+        }}>
+          ▶ REPLAYING YOUR PROGRESS — QUESTION {replayQIndex + 1}/{savedQuizState?.answers.length}
+        </div>
+      )}
+
       {/* Question */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={qIndex}
+          key={effectiveQIndex}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           className="border border-yellow-800 bg-gray-900 p-4"
         >
           <div className="font-pixel text-xs text-yellow-400 mb-3">
-            QUESTION {qIndex + 1}/{totalQ}
+            QUESTION {effectiveQIndex + 1}/{totalQ}
           </div>
           <div className="font-pixel text-sm text-gray-200 mb-4 leading-relaxed">
             {question.text}
@@ -76,11 +149,11 @@ export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
           <div className="space-y-2">
             {question.options.map((opt, i) => {
               let style = 'border-gray-600 text-gray-300 hover:border-gray-400'
-              if (confirmed) {
+              if (effectiveConfirmed) {
                 if (i === correctIdx) style = 'border-green-500 bg-green-950 text-green-400'
-                else if (i === selected) style = 'border-red-500 bg-red-950 text-red-400'
+                else if (i === effectiveSelected) style = 'border-red-500 bg-red-950 text-red-400'
                 else style = 'border-gray-700 text-gray-600'
-              } else if (i === selected) {
+              } else if (i === effectiveSelected) {
                 style = 'border-yellow-500 bg-yellow-950 text-yellow-300'
               }
 
@@ -88,8 +161,8 @@ export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
                 <button
                   key={i}
                   onClick={() => handleSelect(i)}
-                  disabled={confirmed}
-                  className={`w-full border p-2 text-left font-pixel text-xs transition-all ${style} ${confirmed ? 'cursor-default' : 'cursor-pointer'}`}
+                  disabled={effectiveConfirmed || isReplaying}
+                  className={`w-full border p-2 text-left font-pixel text-xs transition-all ${style} ${effectiveConfirmed || isReplaying ? 'cursor-default' : 'cursor-pointer'}`}
                 >
                   {String.fromCharCode(65 + i)}. {opt}
                 </button>
@@ -97,7 +170,7 @@ export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
             })}
           </div>
 
-          {showExplain && (
+          {effectiveShowExplain && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -108,17 +181,17 @@ export default function Phase1Quiz({ boss, onComplete }: Phase1QuizProps) {
           )}
 
           <div className="flex gap-2 mt-4">
-            {!confirmed ? (
+            {!effectiveConfirmed && !isReplaying ? (
               <PixelButton onClick={handleConfirm} disabled={selected === null}>
                 CONFIRM
               </PixelButton>
-            ) : (
+            ) : !isReplaying ? (
               <PixelButton onClick={handleNext} variant="success">
                 {qIndex + 1 >= totalQ ? 'FINISH' : 'NEXT →'}
               </PixelButton>
-            )}
+            ) : null}
             <span className="font-pixel text-xs text-gray-500 self-center ml-auto">
-              SCORE: {score}/{qIndex + (confirmed ? 1 : 0)}
+              SCORE: {score}/{isReplaying ? replayQIndex + 1 : qIndex + (confirmed ? 1 : 0)}
             </span>
           </div>
         </motion.div>

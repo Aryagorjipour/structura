@@ -15,27 +15,56 @@ export default function GenericVisual({ step, stepIndex, total }: GenericVisualP
       key={stepIndex}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="border border-teal-800 bg-teal-950/30 p-4"
+      style={{
+        border: '1px solid rgba(94,200,220,0.2)',
+        background: 'var(--color-surface)',
+        borderRadius: 8,
+        padding: '1rem',
+      }}
     >
-      <div className="font-pixel text-xs text-teal-400 mb-2">
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.12em', color: 'var(--color-cyan)', marginBottom: 8 }}>
         STEP {stepIndex + 1} / {total}
       </div>
-      <div className="font-pixel text-sm text-gray-200 leading-relaxed">
-        {step.description}
+      <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--color-text)', lineHeight: 1.7 }}>
+        {step.description ?? step.label ?? ''}
       </div>
       {step.arrayState && step.arrayState.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1">
+        <div style={{ marginTop: '0.75rem', display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
           {step.arrayState.map((val, i) => (
             <div
               key={i}
-              className={`border-2 w-10 h-10 flex flex-col items-center justify-center font-pixel transition-all ${
-                step.highlightIndices?.includes(i)
-                  ? 'border-green-500 bg-green-950 text-green-400'
-                  : 'border-gray-600 bg-gray-900 text-gray-300'
-              }`}
+              style={{
+                border: step.highlightIndices?.includes(i)
+                  ? '2px solid #22c55e'
+                  : '2px solid #4b5563',
+                background: step.highlightIndices?.includes(i)
+                  ? '#052e16'
+                  : '#111827',
+                color: step.highlightIndices?.includes(i)
+                  ? '#4ade80'
+                  : '#d1d5db',
+                width: '2.5rem',
+                height: '2.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontFamily: 'var(--font-mono)',
+                transition: 'all 0.2s',
+              }}
             >
-              <span className="text-xs">{val}</span>
-              <span className="text-xs text-gray-600">[{i}]</span>
+              <span style={{ fontSize: '0.75rem' }}>{val}</span>
+              <span style={{ fontSize: '0.75rem', color: '#4b5563' }}>[{i}]</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {step.state && typeof step.state === 'object' && !Array.isArray(step.state) && Object.keys(step.state).length > 0 && (
+        <div style={{ marginTop: '0.75rem', padding: '0.5rem', border: '1px solid rgba(20,184,166,0.4)', background: 'rgba(19,78,74,0.2)', borderRadius: 4 }}>
+          {Object.entries(step.state).map(([k, v]) => (
+            <div key={k} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#5eead4', display: 'flex', gap: '0.5rem' }}>
+              <span style={{ color: '#14b8a6' }}>{k}:</span>
+              <span>{String(v)}</span>
             </div>
           ))}
         </div>

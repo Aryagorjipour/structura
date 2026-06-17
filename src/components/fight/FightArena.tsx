@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useGameStore } from '../../store/gameStore'
 import type { BossNode, SideQuestDef } from '../../store/types'
 import BossDisplay from './BossDisplay'
@@ -25,6 +25,7 @@ export default function FightArena({ boss }: FightArenaProps) {
   const [particleActive, setParticleActive] = useState(false)
   const [sideQuestResults, setSideQuestResults] = useState<Array<{ quest: SideQuestDef; completed: boolean }>>([])
   const [showQuestResults, setShowQuestResults] = useState(false)
+  const [showResumeBanner, setShowResumeBanner] = useState(false)
   const fightStartTime = useRef<number>(Date.now())
   const quizMistakes = useRef<number>(0)
   const hintsUsed = useRef<number>(0)
@@ -33,6 +34,37 @@ export default function FightArena({ boss }: FightArenaProps) {
   const gainXP = useGameStore(s => s.gainXP)
   const defeatBoss = useGameStore(s => s.defeatBoss)
   const addQuests = useGameStore(s => s.addQuests)
+  const activeFight = useGameStore(s => s.activeFight)
+  const saveActiveFight = useGameStore(s => s.saveActiveFight)
+  const clearActiveFight = useGameStore(s => s.clearActiveFight)
+
+  // Resume from saved fight on mount
+  useEffect(() => {
+    if (activeFight && activeFight.bossId === boss.id) {
+      setPhase(activeFight.phase)
+      setBossHP(Math.round(boss.bossHP * activeFight.bossHpPercent))
+      if (activeFight.phase > 1) {
+        setShowResumeBanner(true)
+        setTimeout(() => setShowResumeBanner(false), 2500)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Persist fight state whenever phase or bossHP changes
+  useEffect(() => {
+    if (phase === 'victory' || phase === 'defeat') return
+    saveActiveFight({
+      bossId: boss.id,
+      phase: phase as 1 | 2 | 3,
+      bossHpPercent: boss.bossHP > 0 ? bossHP / boss.bossHP : 0,
+      savedQuizState: null,
+      savedTraceStep: 0,
+      savedLanguage: 'python',
+      savedCode: '',
+      startedAt: fightStartTime.current,
+    })
+  }, [phase, bossHP])
 
   function triggerShake() {
     setShake(true)
@@ -46,6 +78,7 @@ export default function FightArena({ boss }: FightArenaProps) {
       triggerShake()
       setPhase(2)
     } else {
+      clearActiveFight()
       setPhase('defeat')
     }
   }
@@ -62,6 +95,7 @@ export default function FightArena({ boss }: FightArenaProps) {
       setBossHP(0)
       defeatBoss(boss.id, boss.xpReward, boss.loot ?? [])
       gainXP(boss.xpReward)
+      clearActiveFight()
 
       // Evaluate side quests
       const elapsed = Date.now() - fightStartTime.current
@@ -103,11 +137,13 @@ export default function FightArena({ boss }: FightArenaProps) {
 
       setPhase('victory')
     } else {
+      clearActiveFight()
       setPhase('defeat')
     }
   }
 
   function handleRetry() {
+    clearActiveFight()
     setBossHP(boss.bossHP)
     setPhase(1)
   }
@@ -123,6 +159,20 @@ export default function FightArena({ boss }: FightArenaProps) {
   return (
     <div className="min-h-screen p-4" style={{ backgroundColor: 'var(--color-void)' }}>
       <ParticleBurst active={particleActive} />
+
+      {showResumeBanner && (
+        <div style={{
+          position: 'fixed', top: '4.5rem', left: '50%', transform: 'translateX(-50%)',
+          background: 'var(--color-raised)',
+          border: '1px solid rgba(94,200,220,0.3)',
+          borderRadius: 8, padding: '8px 20px',
+          fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--color-cyan)',
+          zIndex: 300, letterSpacing: '0.1em',
+          boxShadow: '0 0 20px rgba(94,200,220,0.2)',
+        }}>
+          ▶ RESUMING FIGHT FROM SAVE
+        </div>
+      )}
 
       <div className="max-w-3xl mx-auto">
         {/* Header */}
@@ -160,7 +210,24 @@ export default function FightArena({ boss }: FightArenaProps) {
         {/* Phase content */}
         <div>
           {phase === 1 && (
-            <Phase1Quiz boss={boss} onComplete={handlePhase1Complete} />
+            <Phase1Quiz
+              boss={boss}
+              onComplete={handlePhase1Complete}
+              savedQuizState={activeFight?.bossId === boss.id ? activeFight?.savedQuizState ?? null : null}
+              onQuizProgress={(quizState) => {
+                if (phase !== 1) return
+                saveActiveFight({
+                  bossId: boss.id,
+                  phase: 1,
+                  bossHpPercent: boss.bossHP > 0 ? bossHP / boss.bossHP : 1,
+                  savedQuizState: quizState,
+                  savedTraceStep: 0,
+                  savedLanguage: 'python',
+                  savedCode: '',
+                  startedAt: fightStartTime.current,
+                })
+              }}
+            />
           )}
           {phase === 2 && (
             <Phase2Visual boss={boss} onComplete={handlePhase2Complete} />

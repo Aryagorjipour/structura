@@ -162,3 +162,28 @@ export interface SkillNode {
   prerequisites: string[]  // skill ids
   effect: string           // human-readable effect key
 }
+
+// ===== PROFILE SYSTEM =====
+export interface ProfileState {
+  username: string
+  avatarId: string  // one of the AVATAR_IDS
+  hasCompletedOnboarding: boolean
+  joinedAt: number  // timestamp
+}
+
+// ===== ACTIVE FIGHT PERSISTENCE =====
+export interface SavedQuizState {
+  answers: Array<{ selected: number; wasCorrect: boolean }>
+  score: number
+}
+
+export interface ActiveFight {
+  bossId: string
+  phase: 1 | 2 | 3
+  bossHpPercent: number  // 0 to 1 (fraction of original bossHP remaining)
+  savedQuizState: SavedQuizState | null
+  savedTraceStep: number
+  savedLanguage: Language
+  savedCode: string
+  startedAt: number
+}

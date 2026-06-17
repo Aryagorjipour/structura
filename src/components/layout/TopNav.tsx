@@ -2,6 +2,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useGameStore } from '@/store/gameStore'
+import { useProfileStore } from '@/store/profileStore'
+import AvatarDisplay from '@/components/ui/AvatarDisplay'
 
 const NAV_LINKS = [
   { href: '/map',    label: 'Map' },
@@ -12,6 +14,7 @@ const NAV_LINKS = [
 export default function TopNav() {
   const pathname = usePathname()
   const player = useGameStore((s) => s.player)
+  const profile = useProfileStore()
 
   // Hide on title screen and fight screens
   if (pathname === '/' || pathname.startsWith('/fight')) return null
@@ -57,12 +60,18 @@ export default function TopNav() {
           })}
         </div>
 
-        {/* Player stats */}
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-muted)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span style={{ color: 'var(--color-gold)' }}>Lv.{player.level}</span>
-          <span>{player.defeatedBosses.length} bosses slain</span>
-          <span style={{ color: 'var(--color-cyan)' }}>{player.xp} XP</span>
-        </div>
+        {/* Player avatar + stats */}
+        <Link href="/profile" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <AvatarDisplay avatarId={profile.avatarId} size={32} />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.6rem', color: 'var(--color-text)', letterSpacing: '0.04em' }}>
+              {profile.username || 'Adventurer'}
+            </span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--color-gold)' }}>
+              Lv.{player.level} · {player.xp} XP
+            </span>
+          </div>
+        </Link>
       </div>
     </nav>
   )

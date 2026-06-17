@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { PlayerState, FightState, Language, Quest } from './types'
+import type { PlayerState, FightState, Language, Quest, ActiveFight } from './types'
 import { levelFromXP } from '@/lib/xpSystem'
 
 interface GameStore {
@@ -8,6 +8,12 @@ interface GameStore {
   fight: FightState | null
   quests: Quest[]
   questResetTimestamps: { daily: number; weekly: number }
+  activeFight: ActiveFight | null
+
+  // Active fight actions
+  saveActiveFight: (fight: ActiveFight) => void
+  clearActiveFight: () => void
+  restorePlayer: (player: PlayerState) => void
 
   // Player actions
   gainXP: (amount: number) => void
@@ -49,6 +55,7 @@ export const useGameStore = create<GameStore>()(
       fight: null,
       quests: [],
       questResetTimestamps: { daily: 0, weekly: 0 },
+      activeFight: null,
 
       gainXP: (amount) => set((s) => {
         const newXP = s.player.xp + amount
@@ -180,6 +187,20 @@ export const useGameStore = create<GameStore>()(
 
       addQuests: (newQuests) => set((s) => ({
         quests: [...s.quests, ...newQuests.filter(nq => !s.quests.find(q => q.id === nq.id))]
+      })),
+
+      saveActiveFight: (fight) => set({ activeFight: fight }),
+
+      clearActiveFight: () => set({ activeFight: null }),
+
+      restorePlayer: (playerData) => set((s) => ({
+        player: {
+          ...s.player,
+          ...playerData,
+          // Ensure all required fields exist
+          skillPoints: playerData.skillPoints ?? s.player.skillPoints,
+          unlockedSkills: playerData.unlockedSkills ?? s.player.unlockedSkills,
+        }
       })),
 
       unlockSkill: (skillId, cost) => set((s) => {

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Cinzel_Decorative, Source_Serif_4, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import TopNav from '@/components/layout/TopNav'
+import OnboardingGate from '@/components/layout/OnboardingGate'
 
 const cinzel = Cinzel_Decorative({
   subsets: ['latin'],
@@ -33,8 +34,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${cinzel.variable} ${sourceSerif.variable} ${jetbrains.variable}`}>
       <body style={{ backgroundColor: 'var(--color-void)', color: 'var(--color-text)', fontFamily: 'var(--font-body)' }} className="min-h-screen">
-        <TopNav />
-        <main>{children}</main>
+        <OnboardingGate>
+          <TopNav />
+          <main>{children}</main>
+        </OnboardingGate>
       </body>
     </html>
   )
