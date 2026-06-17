@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚔ Structura
 
-## Getting Started
+**Master Data Structures & Algorithms through dungeon combat.**
 
-First, run the development server:
+Structura is a dark-fantasy RPG where every boss is an algorithm. Fight your way through 11 zones and 80 bosses — answer quiz questions to deal damage, trace through visualizations, then write the code to finish them off.
+
+🎮 **[Play Live →](https://aryagorjipour.github.io/structura/)**
+
+---
+
+## How It Works
+
+Each boss fight has three phases:
+
+| Phase | Name | What You Do |
+|-------|------|-------------|
+| I | **Quiz Duel** | Answer MCQs about the algorithm — correct answers deal damage |
+| II | **Visual Trace** | Step through an animated visualization of the data structure |
+| III | **Code Duel** | Write a working implementation in your language of choice |
+
+Defeat bosses to earn XP, level up, and unlock the next zone.
+
+---
+
+## Features
+
+- **80 Bosses across 11 Zones** — Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, Sorting, Searching, Dynamic Programming, Greedy, and Advanced Algorithms
+- **6 Languages** — Python, TypeScript, Go, Rust, C#, C++
+- **In-browser code execution** — Python runs via Pyodide (WASM), TypeScript runs natively, compiled languages via Wandbox — no server required
+- **2.5D Isometric World Map** — CSS perspective zones with mouse parallax, boss orbs, and connection paths
+- **Quest System** — Daily, weekly, story, and side quests with XP rewards
+- **Skill Tree** — Spend skill points on RPG upgrades (Iron Will, Code Savant, Pathfinder…)
+- **Knowledge Atlas** — Pan/zoom SVG graph of all 80 bosses
+- **Persistent Progress** — Zustand + localStorage, resume mid-fight where you left off
+- **Profile & Save System** — Custom username, 24 avatar choices, JSON export/import
+
+---
+
+## Tech Stack
+
+- **Next.js 16** (static export) · **React 19** · **TypeScript**
+- **Zustand 5** (state + persistence) · **Framer Motion** (animations)
+- **Monaco Editor** (VS Code editor in-browser)
+- **Pyodide** (CPython 3.11 in WebAssembly)
+- **Tailwind CSS 4** · **Cinzel Decorative** / **Source Serif 4** / **JetBrains Mono**
+
+---
+
+## Run Locally
 
 ```bash
+git clone https://github.com/Aryagorjipour/structura.git
+cd structura
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
+Pushes to `main` automatically deploy to GitHub Pages via the included workflow (`.github/workflows/deploy.yml`). Enable Pages in your repo: **Settings → Pages → Source: gh-pages branch**.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+PRs welcome. New boss ideas, additional languages, visual trace improvements, or bug fixes — open an issue first to discuss.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by [ArySmart](https://github.com/aryagorjipour) · Dark fantasy aesthetic inspired by [structura.aryagorjipour.github.io](https://aryagorjipour.github.io/structura/)
