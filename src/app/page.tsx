@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { TOTAL_BOSSES } from '../data'
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
 export default function HomePage() {
   return (
@@ -26,8 +27,9 @@ export default function HomePage() {
       {/* Title */}
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-          <Image
-            src="/logo.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${BASE}/logo.png`}
             alt="Structura"
             width={96}
             height={96}
