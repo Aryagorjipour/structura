@@ -124,7 +124,7 @@ export default function SkillsPage() {
           }}
         >
           <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.8rem', color: 'var(--color-gold)', letterSpacing: '0.1em' }}>
-            ✦ Master of the Catacombs ✦
+            ✦ Master of Structura ✦
           </div>
           <div style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', marginTop: 6, fontSize: '0.8rem' }}>
             You have conquered all skills and earned the ultimate title.

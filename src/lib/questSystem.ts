@@ -11,7 +11,7 @@ const DAILY_TEMPLATES: Array<{ title: string; description: string; target: numbe
 ]
 
 const WEEKLY_TEMPLATES: Array<{ title: string; description: string; target: number; reward: QuestReward }> = [
-  { title: 'Catacombs Veteran', description: 'Defeat 7 bosses this week', target: 7, reward: { xp: 800, items: ['Ancient Scroll', 'Rune Fragment'] } },
+  { title: 'Structura Veteran', description: 'Defeat 7 bosses this week', target: 7, reward: { xp: 800, items: ['Ancient Scroll', 'Rune Fragment'] } },
   { title: 'Zone Conqueror', description: 'Fully clear any zone', target: 1, reward: { xp: 600, badge: 'zone-conqueror' } },
   { title: 'Depths Explorer', description: 'Defeat a boss from Zone 6 or higher', target: 1, reward: { xp: 400, items: ['Scroll of Power'] } },
   { title: 'Rust Initiate', description: 'Win a Code Duel in Rust', target: 1, reward: { xp: 350, items: ['Iron Tome'] } },

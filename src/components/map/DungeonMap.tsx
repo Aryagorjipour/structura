@@ -32,7 +32,7 @@ export default function DungeonMap() {
 
       {/* Title */}
       <div className="text-center mb-6">
-        <h1 className="font-pixel text-green-400 text-lg">ALGORITHM CATACOMBS</h1>
+        <h1 className="font-pixel text-green-400 text-lg">STRUCTURA</h1>
         <p className="text-gray-500 text-xs mt-2 font-pixel">SELECT A BOSS TO FIGHT</p>
       </div>
 

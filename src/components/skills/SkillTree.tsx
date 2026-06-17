@@ -23,7 +23,7 @@ const SKILLS: SkillDef[] = [
   { id: 'fortress', name: 'Fortress', description: 'Start each fight at 110% HP', tier: 3, cost: 3, prerequisites: ['veteran'], x: 100, y: 300 },
   { id: 'code-savant', name: 'Code Savant', description: '+60s on the Code Duel timer', tier: 3, cost: 3, prerequisites: ['tome-reader'], x: 300, y: 300 },
   { id: 'pathfinder', name: 'Pathfinder', description: 'Reveal all zone connections on the map', tier: 3, cost: 3, prerequisites: ['dungeon-runner'], x: 500, y: 300 },
-  { id: 'master', name: 'Master of the Catacombs', description: 'Legendary title + golden aura', tier: 4, cost: 5, prerequisites: ['fortress', 'code-savant', 'pathfinder'], x: 300, y: 420 },
+  { id: 'master', name: 'Master of Structura', description: 'Legendary title + golden aura', tier: 4, cost: 5, prerequisites: ['fortress', 'code-savant', 'pathfinder'], x: 300, y: 420 },
 ]
 
 const EDGES: [string, string][] = [

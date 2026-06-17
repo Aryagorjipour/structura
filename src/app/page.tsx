@@ -43,7 +43,7 @@ export default function HomePage() {
           marginBottom: '0.5rem',
           lineHeight: 1.2,
         }}>
-          Algorithm Catacombs
+          Structura
         </h1>
         <div style={{
           fontFamily: 'var(--font-display)',
@@ -136,7 +136,7 @@ export default function HomePage() {
 
       {/* Enter button */}
       <Link href="/map" style={{ textDecoration: 'none', marginBottom: '1.5rem' }}>
-        <span className="enter-btn">⚔ Enter the Catacombs</span>
+        <span className="enter-btn">⚔ Enter Structura</span>
       </Link>
 
       <div style={{
@@ -145,7 +145,7 @@ export default function HomePage() {
         color: 'var(--color-dim)',
         letterSpacing: '0.15em',
       }}>
-        v2.0.0 · ALGORITHM CATACOMBS
+        v2.0.0 · STRUCTURA
       </div>
     </main>
   )

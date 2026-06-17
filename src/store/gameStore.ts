@@ -194,6 +194,6 @@ export const useGameStore = create<GameStore>()(
         }
       }),
     }),
-    { name: 'algo-catacombs' }
+    { name: 'structura' }
   )
 )

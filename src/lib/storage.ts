@@ -1,6 +1,6 @@
 import type { PlayerState } from '@/store/types'
 
-const KEY = 'algo-catacombs-save'
+const KEY = 'structura-save'
 
 const DEFAULT_PLAYER: PlayerState = {
   level: 1, xp: 0, hp: 100, maxHp: 100,

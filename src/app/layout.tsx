@@ -25,8 +25,8 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Algorithm Catacombs',
-  description: 'Master DSA through dungeon combat',
+  title: 'Structura',
+  description: 'Master Data Structures & Algorithms through RPG dungeon combat',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

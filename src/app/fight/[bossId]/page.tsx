@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: FightPageProps) {
   const { bossId } = await params
   const boss = getBoss(bossId)
   return {
-    title: boss ? `Fight: ${boss.bossName} | Algorithm Catacombs` : 'Fight | Algorithm Catacombs',
+    title: boss ? `Fight: ${boss.bossName} | Structura` : 'Fight | Structura',
   }
 }
 

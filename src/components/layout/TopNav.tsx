@@ -30,7 +30,7 @@ export default function TopNav() {
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '56px' }}>
         {/* Logo */}
         <Link href="/" style={{ fontFamily: 'var(--font-display)', fontSize: '0.75rem', color: 'var(--color-cyan)', letterSpacing: '0.08em', textDecoration: 'none' }}>
-          ⚔ Algorithm Catacombs
+          ⚔ Structura
         </Link>
 
         {/* Nav links */}
