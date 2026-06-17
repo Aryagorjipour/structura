@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { TOTAL_BOSSES } from '../data'
 
 export default function HomePage() {
@@ -24,6 +25,15 @@ export default function HomePage() {
 
       {/* Title */}
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+          <Image
+            src="/logo.png"
+            alt="Structura"
+            width={96}
+            height={96}
+            style={{ filter: 'drop-shadow(0 0 24px rgba(94,200,220,0.7)) drop-shadow(0 0 48px rgba(94,200,220,0.3))' }}
+          />
+        </div>
         <div style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '0.6rem',

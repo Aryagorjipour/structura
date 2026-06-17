@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useGameStore } from '@/store/gameStore'
 import { useProfileStore } from '@/store/profileStore'
@@ -32,8 +33,11 @@ export default function TopNav() {
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '56px' }}>
         {/* Logo */}
-        <Link href="/" style={{ fontFamily: 'var(--font-display)', fontSize: '0.75rem', color: 'var(--color-cyan)', letterSpacing: '0.08em', textDecoration: 'none' }}>
-          ⚔ Structura
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Image src="/logo.png" alt="Structura" width={28} height={28} style={{ borderRadius: 4, filter: 'drop-shadow(0 0 6px rgba(94,200,220,0.6))' }} />
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.75rem', color: 'var(--color-cyan)', letterSpacing: '0.08em' }}>
+            Structura
+          </span>
         </Link>
 
         {/* Nav links */}
