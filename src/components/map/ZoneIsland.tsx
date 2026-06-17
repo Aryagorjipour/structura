@@ -1,5 +1,6 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import type { Zone } from '@/store/types'
 import { isBossUnlocked } from '@/data/index'
 import BossOrb from './BossOrb'
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export default function ZoneIsland({ zone, position, defeatedBosses, isSelected, onSelect }: Props) {
+  const router = useRouter()
   const color = ZONE_COLORS[zone.theme] ?? '#5ec8dc'
   const defeated = zone.bosses.filter(b => defeatedBosses.includes(b.id)).length
   const total = zone.bosses.length
@@ -208,7 +210,7 @@ export default function ZoneIsland({ zone, position, defeatedBosses, isSelected,
                 return (
                   <a
                     key={boss.id}
-                    href={isUnlocked ? `/fight/${boss.id}` : undefined}
+                    onClick={isUnlocked ? () => router.push(`/fight/${boss.id}`) : undefined}
                     style={{
                       display: 'flex',
                       justifyContent: 'space-between',

@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import type { BossNode } from '@/store/types'
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function BossOrb({ boss, defeated, unlocked, zoneColor, showLabel }: Props) {
+  const router = useRouter()
   const color = defeated ? 'var(--color-gold)' : unlocked ? zoneColor : 'var(--color-dim)'
   const glow = defeated
     ? '0 0 8px rgba(226,196,106,0.8), 0 0 16px rgba(226,196,106,0.4)'
@@ -45,7 +47,7 @@ export default function BossOrb({ boss, defeated, unlocked, zoneColor, showLabel
           ]
         } : undefined}
         transition={unlocked && !defeated ? { duration: 2, repeat: Infinity, ease: 'easeInOut' } : undefined}
-        onClick={unlocked ? () => { window.location.href = `/fight/${boss.id}` } : undefined}
+        onClick={unlocked ? () => router.push(`/fight/${boss.id}`) : undefined}
       />
       {showLabel && (
         <div style={{

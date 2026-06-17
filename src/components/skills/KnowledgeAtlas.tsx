@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { ALL_ZONES, ALL_BOSSES } from '@/data/index'
 import { useGameStore } from '@/store/gameStore'
 
@@ -35,6 +36,7 @@ function computePositions() {
 const POSITIONS = computePositions()
 
 export default function KnowledgeAtlas() {
+  const router = useRouter()
   const defeatedBosses = useGameStore(s => s.player.defeatedBosses)
   const [transform, setTransform] = useState({ x: 0, y: 0, scale: 0.75 })
   const [dragging, setDragging] = useState(false)
@@ -171,7 +173,7 @@ export default function KnowledgeAtlas() {
                   }
                 }}
                 onMouseLeave={() => setTooltip(null)}
-                onClick={() => { window.location.href = `/fight/${boss.id}` }}
+                onClick={() => router.push(`/fight/${boss.id}`)}
               />
               {defeated && (
                 <text x={pos.x} y={pos.y + 3} textAnchor="middle"
