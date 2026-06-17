@@ -17,7 +17,7 @@ export default function TopNav() {
   const profile = useProfileStore()
 
   // Hide on title screen and fight screens
-  if (pathname === '/' || pathname.startsWith('/fight')) return null
+  if (pathname === '/' || pathname === '/onboarding' || pathname.startsWith('/fight')) return null
 
   return (
     <nav

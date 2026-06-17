@@ -62,27 +62,27 @@ export default function OnboardingPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
             style={{ textAlign: 'center', maxWidth: 480 }}
           >
-            <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>⚔️</div>
+            <div style={{ fontSize: '5rem', marginBottom: '1.5rem' }}>⚔️</div>
             <h1 style={{
-              fontFamily: 'var(--font-display)', fontSize: 'clamp(1.2rem, 4vw, 2rem)',
+              fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 5vw, 2.6rem)',
               color: 'var(--color-cyan)', textShadow: '0 0 24px rgba(94,200,220,0.5)',
-              marginBottom: '1rem', letterSpacing: '0.06em',
+              marginBottom: '1.2rem', letterSpacing: '0.06em',
             }}>
               Welcome to Structura
             </h1>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '1rem', lineHeight: 1.8, marginBottom: '0.8rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '1.15rem', lineHeight: 1.8, marginBottom: '0.8rem' }}>
               80 algorithmic bosses await in the catacombs below.
             </p>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '0.9rem', lineHeight: 1.8, marginBottom: '2rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
               Quiz their weaknesses. Trace their patterns. Defeat them with code.
             </p>
             <button
               onClick={() => setStep(1)}
               style={{
-                fontFamily: 'var(--font-display)', fontSize: '0.65rem', letterSpacing: '0.15em',
+                fontFamily: 'var(--font-display)', fontSize: '0.95rem', fontWeight: 700, letterSpacing: '0.12em',
                 color: 'var(--color-void)', background: 'linear-gradient(135deg, var(--color-cyan), #3ab4cc)',
-                border: 'none', borderRadius: 8, padding: '14px 40px', cursor: 'pointer',
-                boxShadow: '0 0 24px rgba(94,200,220,0.4)',
+                border: 'none', borderRadius: 10, padding: '18px 48px', cursor: 'pointer',
+                boxShadow: '0 0 28px rgba(94,200,220,0.45)',
               }}
             >
               BEGIN YOUR JOURNEY
@@ -96,14 +96,14 @@ export default function OnboardingPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
             style={{ textAlign: 'center', maxWidth: 400, width: '100%' }}
           >
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📜</div>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📜</div>
             <h2 style={{
-              fontFamily: 'var(--font-display)', fontSize: '1rem', letterSpacing: '0.08em',
-              color: 'var(--color-gold)', marginBottom: '0.5rem',
+              fontFamily: 'var(--font-display)', fontSize: '1.4rem', letterSpacing: '0.08em',
+              color: 'var(--color-gold)', marginBottom: '0.6rem',
             }}>
               What shall we call you?
             </h2>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '1rem', marginBottom: '1.5rem' }}>
               Choose your adventurer name.
             </p>
             <input
@@ -124,11 +124,11 @@ export default function OnboardingPage() {
               }}
             />
             {nameError && (
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--color-magenta)', marginBottom: 12 }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--color-magenta)', marginBottom: 12 }}>
                 {nameError}
               </div>
             )}
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--color-dim)', marginBottom: '1.5rem', textAlign: 'right' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--color-dim)', marginBottom: '1.5rem', textAlign: 'right' }}>
               {name.length}/20
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
@@ -142,29 +142,29 @@ export default function OnboardingPage() {
         {step === 2 && (
           <motion.div key="avatar"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-            style={{ textAlign: 'center', maxWidth: 560, width: '100%' }}
+            style={{ textAlign: 'center', maxWidth: 640, width: '100%' }}
           >
             <h2 style={{
-              fontFamily: 'var(--font-display)', fontSize: '1rem', letterSpacing: '0.08em',
-              color: 'var(--color-gold)', marginBottom: '0.5rem',
+              fontFamily: 'var(--font-display)', fontSize: '1.4rem', letterSpacing: '0.08em',
+              color: 'var(--color-gold)', marginBottom: '0.6rem',
             }}>
               Choose Your Form
             </h2>
-            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', fontSize: '1rem', marginBottom: '1.5rem' }}>
               Select the spirit that will guide you through Structura.
             </p>
 
             {/* Selected preview */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: '1.5rem',
-              padding: '12px 24px', background: 'var(--color-surface)', borderRadius: 12,
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginBottom: '1.5rem',
+              padding: '16px 28px', background: 'var(--color-surface)', borderRadius: 12,
               border: '1px solid rgba(94,200,220,0.2)',
             }}>
-              <AvatarDisplay avatarId={selectedAvatar} size={56} selected />
+              <AvatarDisplay avatarId={selectedAvatar} size={64} selected />
               <div>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.8rem', color: 'var(--color-text)' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: 'var(--color-text)' }}>
                   {name}
                 </div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', color: 'var(--color-cyan)', marginTop: 4 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--color-cyan)', marginTop: 6 }}>
                   the {AVATARS.find(a => a.id === selectedAvatar)?.label ?? ''}
                 </div>
               </div>
@@ -173,18 +173,18 @@ export default function OnboardingPage() {
             {/* Avatar grid */}
             <div style={{
               display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)',
-              gap: 10, marginBottom: '1.5rem',
+              gap: 14, marginBottom: '1.5rem',
             }}>
               {AVATARS.map(av => (
-                <div key={av.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div key={av.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                   <AvatarDisplay
                     avatarId={av.id}
-                    size={52}
+                    size={60}
                     selected={selectedAvatar === av.id}
                     onClick={() => setSelectedAvatar(av.id)}
                   />
                   <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '0.38rem',
+                    fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
                     color: selectedAvatar === av.id ? 'var(--color-cyan)' : 'var(--color-dim)',
                     textAlign: 'center',
                   }}>
@@ -201,19 +201,40 @@ export default function OnboardingPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Footer */}
+      <footer style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0,
+        padding: '12px 24px',
+        background: 'transparent',
+        textAlign: 'center',
+      }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-dim)', letterSpacing: '0.06em' }}>
+          © {new Date().getFullYear()} ArySmart ·{' '}
+          <a
+            href="https://github.com/aryagorjipour"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--color-dim)', textDecoration: 'none' }}
+          >
+            aryagorjipour
+          </a>
+          {' '}on GitHub · All rights reserved
+        </span>
+      </footer>
     </div>
   )
 }
 
 const primaryBtnStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-display)', fontSize: '0.6rem', letterSpacing: '0.12em',
+  fontFamily: 'var(--font-display)', fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.1em',
   color: 'var(--color-void)', background: 'linear-gradient(135deg, var(--color-cyan), #3ab4cc)',
-  border: 'none', borderRadius: 8, padding: '12px 28px', cursor: 'pointer',
-  boxShadow: '0 0 16px rgba(94,200,220,0.35)',
+  border: 'none', borderRadius: 10, padding: '14px 32px', cursor: 'pointer',
+  boxShadow: '0 0 20px rgba(94,200,220,0.4)',
 }
 
 const ghostBtnStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-display)', fontSize: '0.6rem', letterSpacing: '0.12em',
+  fontFamily: 'var(--font-display)', fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.1em',
   color: 'var(--color-muted)', background: 'transparent',
-  border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '12px 20px', cursor: 'pointer',
+  border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, padding: '14px 24px', cursor: 'pointer',
 }
