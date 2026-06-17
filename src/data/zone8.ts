@@ -50,6 +50,15 @@ export const zone8: Zone = {
       codeTemplates: stub("Graph: {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'D'], 'D': ['B', 'C']}", `from collections import defaultdict\n\ngraph = defaultdict(list)\nedges = [('A','B'),('A','C'),('B','D'),('C','D')]\nfor u, v in edges:\n    graph[u].append(v)\n    graph[v].append(u)  # undirected\n\nprint("Graph:", dict(graph))`, ['defaultdict(list) for adjacency list', 'Add both directions for undirected']),
       prerequisites: ['Z4-03'],
       xpReward: 110, loot: ['Connection Rune', 'Graph Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone8-boss1-speed',
+          title: 'Graph Sprinter',
+          description: 'Complete the entire boss fight in under 90 seconds',
+          condition: 'speed_run' as const,
+          reward: { xp: 180, items: ['Scroll of Haste'] },
+        },
+      ],
     },
     {
       id: 'Z8-02', name: 'Union-Find', zone: 8, category: 'ds', position: 2,

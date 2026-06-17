@@ -284,6 +284,22 @@ int main() {
       prerequisites: [],
       xpReward: 100,
       loot: ['Complexity Scroll', 'Big-O Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone1-boss1-perfect',
+          title: 'Flawless Scholar',
+          description: 'Defeat this boss with a perfect quiz score',
+          condition: 'perfect_quiz' as const,
+          reward: { xp: 100, items: ['Scroll of Clarity'] },
+        },
+        {
+          id: 'sq-zone1-boss1-speed',
+          title: 'Speed Runner',
+          description: 'Defeat this boss in under 90 seconds',
+          condition: 'speed_run' as const,
+          reward: { xp: 80 },
+        },
+      ],
     },
     {
       id: 'Z1-02',

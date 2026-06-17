@@ -73,6 +73,16 @@ export const zone5: Zone = {
       prerequisites: ['Z4-01'],
       xpReward: 120,
       loot: ['Hash Stone', 'O(1) Lookup Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone5-boss1-ts',
+          title: 'TypeScript Wizard',
+          description: 'Solve the Code Duel in TypeScript',
+          condition: 'language_challenge' as const,
+          conditionParam: 'typescript',
+          reward: { xp: 140, items: ['Crystal of Logic'] },
+        },
+      ],
     },
     {
       id: 'Z5-02', name: 'Hash Map', zone: 5, category: 'ds', position: 2,

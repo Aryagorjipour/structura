@@ -52,6 +52,16 @@ export const zone7: Zone = {
       codeTemplates: stub('B-tree: O(log n) disk-optimal', `# B-trees are complex (100+ lines). In practice, use a database.\n# This demonstrates B-tree concept via Python's sorted containers.\nfrom sortedcontainers import SortedDict\n\n# B-tree simulated as sorted dict (O(log n) ops)\nbtree = SortedDict()\nfor k, v in [(5,"five"),(3,"three"),(7,"seven"),(1,"one")]:\n    btree[k] = v\n\nprint("B-tree: O(log n) disk-optimal")\nprint("Keys:", list(btree.keys()))\nprint("Search key=3:", btree.get(3, "not found"))`, ['B-trees minimize disk reads', 'Each node = one disk block']),
       prerequisites: ['Z6-09'],
       xpReward: 170, loot: ['Disk Key', 'B-Tree Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone7-boss1-rust',
+          title: 'Iron Coder',
+          description: 'Write your solution in Rust',
+          condition: 'language_challenge' as const,
+          conditionParam: 'rust',
+          reward: { xp: 200, items: ['Iron Tome', 'Rune Fragment'] },
+        },
+      ],
     },
     {
       id: 'Z7-02', name: 'Skip List', zone: 7, category: 'ds', position: 2,

@@ -57,6 +57,15 @@ export const zone4: Zone = {
       prerequisites: [],
       xpReward: 100,
       loot: ['Array Stone', 'O(1) Access Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone4-boss1-nohints',
+          title: 'Self-Taught',
+          description: 'Defeat this boss using no hints',
+          condition: 'no_hints' as const,
+          reward: { xp: 110, items: ['Tome of Clarity'] },
+        },
+      ],
     },
     {
       id: 'Z4-02',

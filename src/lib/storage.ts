@@ -5,6 +5,7 @@ const KEY = 'algo-catacombs-save'
 const DEFAULT_PLAYER: PlayerState = {
   level: 1, xp: 0, hp: 100, maxHp: 100,
   inventory: [], defeatedBosses: [], achievements: [],
+  skillPoints: 0, unlockedSkills: [],
 }
 
 export function saveProgress(state: PlayerState): void {

@@ -153,6 +153,15 @@ int main(){vector<int>a={5,2,4,1,3};insertionSort(a);for(int i=0;i<(int)a.size()
       prerequisites: ['Z1-01'],
       xpReward: 100,
       loot: ['Insertion Needle', 'Stability Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone3-boss1-perfect',
+          title: 'Sort Master',
+          description: 'Perfect the quiz with zero mistakes',
+          condition: 'perfect_quiz' as const,
+          reward: { xp: 130, items: ['Ancient Tome'] },
+        },
+      ],
     },
     {
       id: 'Z3-02',

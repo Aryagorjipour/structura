@@ -123,6 +123,15 @@ console.log(JSON.stringify(kmp("ABABCABAB","ABAB")).replace(/,/g,', '))`
       prerequisites: [],
       xpReward: 140,
       loot: ['Failure Function Scroll', 'KMP Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone10-boss1-perfect',
+          title: 'String Theorist',
+          description: 'Ace the quiz without a single mistake',
+          condition: 'perfect_quiz' as const,
+          reward: { xp: 200, items: ['Pattern Tome'] },
+        },
+      ],
     },
     {
       id: 'Z10-02',

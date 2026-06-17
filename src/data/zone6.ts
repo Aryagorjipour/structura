@@ -53,6 +53,15 @@ export const zone6: Zone = {
       codeTemplates: stub('R A B C D E', `class TreeNode:\n    def __init__(self, val):\n        self.val = val\n        self.children = []\n\nfrom collections import deque\ndef level_order(root):\n    result = []\n    q = deque([root])\n    while q:\n        node = q.popleft()\n        result.append(node.val)\n        for child in node.children:\n            q.append(child)\n    return result\n\nroot = TreeNode('R')\na, b, c = TreeNode('A'), TreeNode('B'), TreeNode('C')\nd, e = TreeNode('D'), TreeNode('E')\nroot.children = [a, b, c]; a.children = [d, e]\nprint(' '.join(level_order(root)))`),
       prerequisites: ['Z4-03'],
       xpReward: 110, loot: ['Tree Root', 'Hierarchy Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone6-boss1-perfect',
+          title: 'Tree Sage',
+          description: 'Answer all quiz questions correctly',
+          condition: 'perfect_quiz' as const,
+          reward: { xp: 160, badge: 'tree-sage', items: ['Root Scroll'] },
+        },
+      ],
     },
     {
       id: 'Z6-02', name: 'BST', zone: 6, category: 'ds', position: 2,

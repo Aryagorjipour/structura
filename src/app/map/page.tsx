@@ -1,9 +1,13 @@
-import DungeonMap from '../../components/map/DungeonMap'
+import WorldMap from '@/components/map/WorldMap'
+import QuestBoard from '@/components/quests/QuestBoard'
 
-export const metadata = {
-  title: 'Dungeon Map | Algorithm Catacombs',
-}
+export const metadata = { title: 'World Map — Algorithm Catacombs' }
 
 export default function MapPage() {
-  return <DungeonMap />
+  return (
+    <>
+      <WorldMap />
+      <QuestBoard />
+    </>
+  )
 }

@@ -82,6 +82,7 @@ export interface BossNode {
   prerequisites: string[]
   xpReward: number
   loot?: string[]
+  sideQuests?: SideQuestDef[]
 }
 
 export interface Zone {
@@ -101,6 +102,8 @@ export interface PlayerState {
   inventory: string[]
   defeatedBosses: string[]
   achievements: string[]
+  skillPoints: number
+  unlockedSkills: string[]
 }
 
 export interface FightState {
@@ -115,4 +118,47 @@ export interface FightState {
   code: string
   codeOutput: string | null
   codeCorrect: boolean | null
+}
+
+// ===== QUEST SYSTEM =====
+export type QuestType = 'story' | 'side' | 'daily' | 'weekly'
+
+export interface QuestReward {
+  xp?: number
+  items?: string[]
+  badge?: string
+}
+
+export interface SideQuestDef {
+  id: string
+  title: string
+  description: string
+  condition: 'perfect_quiz' | 'speed_run' | 'language_challenge' | 'no_hints'
+  conditionParam?: string   // e.g. 'rust' for language_challenge
+  reward: QuestReward
+}
+
+export interface Quest {
+  id: string
+  type: QuestType
+  title: string
+  description: string
+  progress: number
+  target: number
+  reward: QuestReward
+  expiresAt?: number
+  completedAt?: number
+  zoneId?: number
+  bossId?: string
+}
+
+// ===== SKILL SYSTEM =====
+export interface SkillNode {
+  id: string
+  name: string
+  description: string
+  tier: 1 | 2 | 3 | 4
+  cost: number
+  prerequisites: string[]  // skill ids
+  effect: string           // human-readable effect key
 }

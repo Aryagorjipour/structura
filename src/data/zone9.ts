@@ -100,6 +100,16 @@ console.log(fib(5))`
       prerequisites: [],
       xpReward: 130,
       loot: ['Memo Scroll', 'DP Primer'],
+      sideQuests: [
+        {
+          id: 'sq-zone9-boss1-go',
+          title: 'Concurrent Mage',
+          description: 'Implement your solution in Go',
+          condition: 'language_challenge' as const,
+          conditionParam: 'go',
+          reward: { xp: 190, items: ['Scroll of Concurrency'] },
+        },
+      ],
     },
     {
       id: 'Z9-02',

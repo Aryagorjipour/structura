@@ -106,6 +106,23 @@ print(f"fish: {bf.contains('fish')}")`,
       prerequisites: [],
       xpReward: 140,
       loot: ['Probability Gem', 'Bloom Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone11-boss1-cpp',
+          title: 'Systems Lord',
+          description: 'Conquer this boss using C++',
+          condition: 'language_challenge' as const,
+          conditionParam: 'cpp',
+          reward: { xp: 300, badge: 'systems-lord', items: ['Ancient Tome', 'Rune Fragment', 'Shadow Crystal'] },
+        },
+        {
+          id: 'sq-zone11-boss1-nohints',
+          title: 'Pure Knowledge',
+          description: 'Defeat the Citadel\'s first guardian without any hints',
+          condition: 'no_hints' as const,
+          reward: { xp: 250, items: ['Crystal of Power'] },
+        },
+      ],
     },
     {
       id: 'Z11-02',

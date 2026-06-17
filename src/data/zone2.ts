@@ -237,6 +237,16 @@ int main() {
       prerequisites: ['Z1-01'],
       xpReward: 100,
       loot: ['Search Lantern', 'Linear Badge'],
+      sideQuests: [
+        {
+          id: 'sq-zone2-boss1-python',
+          title: 'Python Seeker',
+          description: 'Complete the code duel in Python',
+          condition: 'language_challenge' as const,
+          conditionParam: 'python',
+          reward: { xp: 120, items: ['Scroll of Insight'] },
+        },
+      ],
     },
     {
       id: 'Z2-02',
