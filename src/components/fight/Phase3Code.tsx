@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import type { BossNode, Language, CodeTemplate } from '../../store/types'
-import { executeCode } from '../../lib/pistonApi'
+import { executeCode, warmupPyodide, isPyodideReady } from '../../lib/pistonApi'
 import PixelButton from '../ui/PixelButton'
 
 const MonacoEditor = dynamic(() => import('@monaco-editor/react'), { ssr: false })
@@ -55,6 +55,15 @@ export default function Phase3Code({ boss, onComplete }: Phase3CodeProps) {
   const [running, setRunning] = useState(false)
   const [result, setResult] = useState<'pass' | 'fail' | null>(null)
   const [attempts, setAttempts] = useState(0)
+  const [pyodideLoading, setPyodideLoading] = useState(false)
+
+  // Warm up Pyodide in background when component mounts
+  useEffect(() => {
+    if (!isPyodideReady()) {
+      setPyodideLoading(true)
+      warmupPyodide().finally(() => setPyodideLoading(false))
+    }
+  }, [])
 
   function handleLangChange(newLang: Language) {
     setLang(newLang)
@@ -143,10 +152,17 @@ export default function Phase3Code({ boss, onComplete }: Phase3CodeProps) {
         />
       </div>
 
+      {/* Pyodide loading notice */}
+      {lang === 'python' && pyodideLoading && (
+        <div className="font-pixel text-xs text-cyan-600 text-center py-1">
+          ⟳ Loading Python runtime (~10 MB)...
+        </div>
+      )}
+
       {/* Controls */}
       <div className="flex gap-2 items-center">
-        <PixelButton onClick={run} disabled={running} variant="primary">
-          {running ? 'RUNNING...' : '▶ RUN CODE'}
+        <PixelButton onClick={run} disabled={running || (lang === 'python' && pyodideLoading)} variant="primary">
+          {running ? 'RUNNING...' : lang === 'python' && pyodideLoading ? 'LOADING PYTHON...' : '▶ RUN CODE'}
         </PixelButton>
         {attempts > 2 && result === 'fail' && (
           <PixelButton onClick={() => onComplete(false)} variant="danger" size="sm">

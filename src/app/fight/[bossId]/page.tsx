@@ -1,6 +1,10 @@
 import { notFound } from 'next/navigation'
-import { getBoss } from '../../../data'
+import { getBoss, ALL_BOSSES } from '../../../data'
 import FightArena from '../../../components/fight/FightArena'
+
+export function generateStaticParams() {
+  return ALL_BOSSES.map(b => ({ bossId: b.id }))
+}
 
 interface FightPageProps {
   params: Promise<{ bossId: string }>
